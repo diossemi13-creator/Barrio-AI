@@ -1,1 +1,35 @@
 
+name: Crear APK BarrioGPT Ultra
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Descomprimir proyecto
+        run: |
+          unzip -o BarrioGPT_Android_Sin_PC.zip -d proyecto
+          find proyecto -maxdepth 4 -type f
+
+      - name: Compilar APK
+        run: |
+          echo "Revisa los archivos del proyecto antes de compilar."
+          find proyecto -name package.json -print
+          
